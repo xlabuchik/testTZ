@@ -1,4 +1,6 @@
 $(document).ready(function() {
+var cou="Saved items"+"&nbsp;"+'<button id="countItem">'+localStorage.length+'</button>'
+$("#modal").html(cou);
     function search() {
         $.getJSON("https://pixabay.com/api/?key=2980920-46f1aa264b036ffc6e45ebad0&orientation=vertical&q=robot&min_height=500", function(data) {
             var input = $("#textSearch").val();
@@ -25,16 +27,23 @@ $(document).ready(function() {
                 if (!$(this).hasClass('active')) {
                     $(this).html('Delete');
                     var key = "pic" + localStorage.length;
+                 
                     var str = $(this).parent().html()
                     var str1 = str.replace('<button class="btn save">Delete</button>', '').replace('<button type="button" name="index" class="close"><i class="fa fa-trash" aria-hidden="true"></i></button>', '<button type="button" name="index" class="close1 btn"><i class="fa fa-trash" aria-hidden="true"></i></button>')
                     $(this).parent().attr('data-value', key)
                     var color= $(this).parent().attr("style");
                     var inp = "<div style='"+color+"' data-value=" + key + " class='block'>" + str1 + "</div>"
                     localStorage.setItem(key, inp);
+                  $("#countItem").html(localStorage.length);
+                
+                 
                 } else {
+                 
                     $(this).html('Save');
                     var del_key = $(this).parent().attr("data-value");
                     localStorage.removeItem(del_key);
+                 $("#countItem").html(localStorage.length);
+                  
                 }
                 $(this).toggleClass('active');
             });
@@ -80,6 +89,7 @@ $(document).ready(function() {
                 $(this).parent().remove();
             });
 
+          
         });
     }
     search();
@@ -91,6 +101,7 @@ $(document).ready(function() {
                 var del_key = $(this).parent().attr("data-value");
                 $(this).parent().remove();
                 localStorage.removeItem(del_key);
+            $("#countItem").html(localStorage.length);
             })
         }
     });
@@ -100,9 +111,8 @@ $(document).ready(function() {
             var val = $(this).val();
             if (val.length === 0) {
                 $("#helpDiv").fadeOut(500);
-               $("#addBlock").empty();
-                  search();
-				
+                $("#addBlock").empty();
+                 search();
             }
         });
         $(".block").fadeOut();
@@ -113,4 +123,5 @@ $(document).ready(function() {
             $("#notRandom").click();
         }
     })
+  
 });

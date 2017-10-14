@@ -195,3 +195,13 @@ img{
 #search {
   text-align: center;
 }
+#countItem{
+  float:right;
+  width:30px;
+  height:30px;
+  border-radius:100%;
+  background:silver;
+   border: none;
+  outline: none!important;
+
+}
